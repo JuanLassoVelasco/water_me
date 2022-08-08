@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_blue/flutter_blue.dart';
 import 'moistureDeviceCard.dart';
+import 'addDevicePopup.dart';
+import 'constants.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -13,16 +16,34 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   List<Widget> _deviceList = [];
 
-  void _addNewDevice() {
-    setState(() {
-      _deviceList.add(MoistureDeviceCard(deviceName: 'Test Device'));
-    });
+  Future<void> _addNewDevice() async {
+    String deviceName;
+
+    deviceName = await _showAddDevicePopup(context);
+
+    if(deviceName != null) {
+      setState(() {
+        _deviceList.add(MoistureDeviceCard(deviceName: deviceName));
+      });
+    }
+  }
+
+  Future<String> _showAddDevicePopup(BuildContext context) async {
+
+    String deviceName = await showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AddDevicePopup();
+        },
+    );
+
+    return deviceName;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF9EA681),
+      backgroundColor: waterMeBackgroundColor,
       appBar: AppBar(
         backgroundColor: Color.fromRGBO(110, 117, 75, 1),
         title: Text(widget.title),
@@ -34,24 +55,33 @@ class _MyHomePageState extends State<MyHomePage> {
             children: _deviceList,
           ),
           Center(
-            child: TextButton(
-              onPressed: () {
-                _addNewDevice();
-              },
-              child: Container(
-                height: 70.0,
-                width: 100.0,
-                margin: EdgeInsets.all(15.0),
-                decoration: BoxDecoration(
-                  color: Color.fromRGBO(108, 135, 94, 1),
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-                child: Text(
-                  '+',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Color(0xFFF8F0E3),
-                    fontSize: 50.0
+            child: Container(
+              width: 100.0,
+              height: 60.0,
+              margin: EdgeInsets.all(8.0),
+              child: InkWell(
+                onTap: () async {
+                  await _addNewDevice();
+                },
+                borderRadius: BorderRadius.circular(10.0),
+                splashColor: Color(0xFF6E754B),
+                highlightColor: Color(0xFF2C3C1F),
+                child: Center(
+                  child: Ink(
+                    height: 60.0,
+                    width: 100.0,
+                    decoration: BoxDecoration(
+                      color: Color.fromRGBO(108, 135, 94, 1),
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    child: Text(
+                      '+',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: waterMeTextColor,
+                        fontSize: 50.0
+                      ),
+                    ),
                   ),
                 ),
               ),

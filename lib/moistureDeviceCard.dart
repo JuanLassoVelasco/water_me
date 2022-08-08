@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'devicePage.dart';
+import 'constants.dart';
 
 class MoistureDeviceCard extends StatelessWidget {
   MoistureDeviceCard({@required this.deviceName});
@@ -7,23 +9,37 @@ class MoistureDeviceCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 100.0,
-      margin: EdgeInsets.all(15.0),
-      decoration: BoxDecoration(
-        color: Color.fromRGBO(108, 135, 94, 1),
-        borderRadius: BorderRadius.circular(10.0),
-      ),
-      child: Row(
-        children: [
-          Text(
-            deviceName,
-            style: TextStyle(
-              fontSize: 20.0,
-              color: Color(0xFFF8F0E3),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: InkWell(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) {
+                return DevicePage(deviceName: deviceName);
+              },
             ),
+          );
+        },
+        highlightColor: Color(0xFF6E754B),
+        splashColor: Color(0xFF2C3C1F),
+        borderRadius: BorderRadius.circular(10.0),
+        child: Ink(
+          height: 100.0,
+          decoration: BoxDecoration(
+            color: Color.fromRGBO(108, 135, 94, 1),
+            borderRadius: BorderRadius.circular(10.0),
           ),
-        ],
+          child: Row(
+            children: [
+              Text(
+                deviceName,
+                style: labelTextStyle,
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
