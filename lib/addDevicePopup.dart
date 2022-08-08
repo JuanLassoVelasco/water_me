@@ -46,6 +46,7 @@ class _AddDevicePopupState extends State<AddDevicePopup> {
                     },
                     style: TextStyle(
                       color: Color(0xFF171B0A),
+                      fontFamily: waterMeFont,
                     ),
                     decoration: InputDecoration(
                       filled: true,
@@ -57,6 +58,7 @@ class _AddDevicePopupState extends State<AddDevicePopup> {
                       hintText: 'New Device Name',
                       hintStyle: TextStyle(
                         color: Colors.grey,
+                        fontFamily: waterMeFont,
                       ),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(10.0)),
@@ -81,6 +83,7 @@ class _AddDevicePopupState extends State<AddDevicePopup> {
                       style: TextStyle(
                         fontSize: 25,
                         color: waterMeTextColor,
+                        fontFamily: waterMeFont,
                       ),
                     ),
                   ),

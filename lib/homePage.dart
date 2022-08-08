@@ -21,7 +21,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     deviceName = await _showAddDevicePopup(context);
 
-    if(deviceName != null) {
+    if (deviceName != null) {
       setState(() {
         _deviceList.add(MoistureDeviceCard(deviceName: deviceName));
       });
@@ -29,12 +29,11 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<String> _showAddDevicePopup(BuildContext context) async {
-
     String deviceName = await showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AddDevicePopup();
-        },
+      context: context,
+      builder: (BuildContext context) {
+        return AddDevicePopup();
+      },
     );
 
     return deviceName;
@@ -46,9 +45,12 @@ class _MyHomePageState extends State<MyHomePage> {
       backgroundColor: waterMeBackgroundColor,
       appBar: AppBar(
         backgroundColor: Color.fromRGBO(110, 117, 75, 1),
-        title: Text(widget.title),
+        title: Text(
+          widget.title,
+          style: labelTextStyle,
+        ),
       ),
-      body: Column(
+      body: ListView(
         children: [
           Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -79,7 +81,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: waterMeTextColor,
-                        fontSize: 50.0
+                        fontSize: 50.0,
+                        fontFamily: waterMeFont,
                       ),
                     ),
                   ),

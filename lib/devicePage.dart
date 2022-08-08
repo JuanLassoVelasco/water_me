@@ -15,33 +15,56 @@ class _DevicePageState extends State<DevicePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          widget.deviceName,
-        ),
-      ),
       backgroundColor: waterMeBackgroundColor,
       body: Column(
         children: [
           Container(
-            margin: EdgeInsets.all(20.0),
-            child: Text(
-              widget.deviceName,
-              style: TextStyle(
-                fontSize: 50.0,
-              ),
+            margin: EdgeInsets.fromLTRB(0.0, 20.0, 0.0, 20.0),
+            child: Row(
+              children: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: CircleAvatar(
+                    backgroundColor: waterMeButtonColor,
+                    child: Icon(
+                      Icons.arrow_back,
+                      color: waterMeTextColor,
+                    ),
+                  ),
+                ),
+                Text(
+                  widget.deviceName,
+                  style: TextStyle(
+                    fontSize: 30.0,
+                    color: waterMeTextColor,
+                    fontFamily: waterMeFont,
+                  ),
+                ),
+              ],
             ),
           ),
           Container(
+            padding: EdgeInsets.all(10.0),
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Icon(
-                  Icons.water_drop_sharp,
-                  color: waterMeTextColor,
-                ),
                 Text(
-                  '100.0 %',
+                  'Moisture Level:',
                   style: labelTextStyle,
+                ),
+                Row(
+                  children: [
+                    Icon(
+                      Icons.water_drop_sharp,
+                      color: waterMeTextColor,
+                    ),
+                    Text(
+                      '100.0 %',
+                      style: labelTextStyle,
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -51,4 +74,3 @@ class _DevicePageState extends State<DevicePage> {
     );
   }
 }
-

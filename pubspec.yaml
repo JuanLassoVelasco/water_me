@@ -75,3 +75,11 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+  fonts:
+    - family: Soft-Sans-Serif
+      fonts:
+        - asset: fonts/soft_sans_serif_7/soft_sans_serif_7.ttf
+    - family: Cute-Aurora
+      fonts:
+        - asset: fonts/Cute_Aurora_demo.ttf

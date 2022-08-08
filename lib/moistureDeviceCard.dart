@@ -32,10 +32,16 @@ class MoistureDeviceCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(10.0),
           ),
           child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Text(
                 deviceName,
                 style: labelTextStyle,
+              ),
+              Icon(
+                Icons.bluetooth_connected_sharp,
+                color: waterMeTextColor,
               ),
             ],
           ),
