@@ -26,6 +26,7 @@ class _AddDevicePopupState extends State<AddDevicePopup> {
         foundDevices.add(r.device);
       }
     });
+    print(foundDevices);
     flutterBlue.stopScan();
   }
 
