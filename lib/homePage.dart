@@ -15,6 +15,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   List<Widget> _deviceList = [];
+  FlutterBlue flutterBlue = FlutterBlue.instance;
 
   Future<void> _addNewDevice() async {
     String deviceName;
@@ -32,7 +33,9 @@ class _MyHomePageState extends State<MyHomePage> {
     String deviceName = await showDialog(
       context: context,
       builder: (BuildContext context) {
-        return AddDevicePopup();
+        return AddDevicePopup(
+          flutterBlue: flutterBlue,
+        );
       },
     );
 

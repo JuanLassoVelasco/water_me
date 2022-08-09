@@ -11,3 +11,9 @@ const labelTextStyle = TextStyle(
   color: waterMeTextColor,
   fontFamily: waterMeFont,
 );
+
+const dropDownTextStyle = TextStyle(
+  fontSize: 10.0,
+  color: waterMeTextColor,
+  fontFamily: waterMeFont,
+);

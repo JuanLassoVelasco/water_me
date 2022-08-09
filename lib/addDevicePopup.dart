@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:water_me/constants.dart';
+import 'package:flutter_blue/flutter_blue.dart';
 
 class AddDevicePopup extends StatefulWidget {
-  const AddDevicePopup({Key key}) : super(key: key);
+  const AddDevicePopup({Key key, @required this.flutterBlue}) : super(key: key);
+
+  final FlutterBlue flutterBlue;
 
   @override
   State<AddDevicePopup> createState() => _AddDevicePopupState();
@@ -10,6 +13,21 @@ class AddDevicePopup extends StatefulWidget {
 
 class _AddDevicePopupState extends State<AddDevicePopup> {
   String deviceName;
+  List<BluetoothDevice> foundDevices = [];
+  BluetoothDevice selectedDevice;
+
+  void _scanForDevices(FlutterBlue flutterBlue) {
+    flutterBlue.startScan(timeout: Duration(seconds: 4));
+
+// Listen to scan results
+    var subscription = flutterBlue.scanResults.listen((results) {
+      // do something with scan results
+      for (ScanResult r in results) {
+        foundDevices.add(r.device);
+      }
+    });
+    flutterBlue.stopScan();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +59,7 @@ class _AddDevicePopupState extends State<AddDevicePopup> {
                 Container(
                   padding: EdgeInsets.all(1.0),
                   child: TextField(
-                    onChanged: (value){
+                    onChanged: (value) {
                       deviceName = value;
                     },
                     style: TextStyle(
@@ -67,6 +85,43 @@ class _AddDevicePopupState extends State<AddDevicePopup> {
                     ),
                   ),
                 ),
+                Row(
+                  children: [
+                    DropdownButton<BluetoothDevice>(
+                        items: foundDevices.map((item) => DropdownMenuItem(
+                          value: item,
+                            child: Text(
+                              item.name,
+                              style: dropDownTextStyle,
+                            ),
+                        )).toList(),
+                        onChanged: (item) => setState(() {
+                          selectedDevice = item;
+                        }),
+                    ),
+                    Container(
+                      margin: EdgeInsets.all(5.0),
+                      width: 100.0,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10.0),
+                        color: Color.fromRGBO(108, 135, 94, 1),
+                      ),
+                      child: TextButton(
+                        onPressed: () {
+                          _scanForDevices(widget.flutterBlue);
+                        },
+                        child: Text(
+                          'Scan',
+                          style: TextStyle(
+                            fontSize: 25,
+                            color: waterMeTextColor,
+                            fontFamily: waterMeFont,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
                 Container(
                   margin: EdgeInsets.all(10.0),
                   width: 100.0,
@@ -75,7 +130,7 @@ class _AddDevicePopupState extends State<AddDevicePopup> {
                     color: Color.fromRGBO(108, 135, 94, 1),
                   ),
                   child: TextButton(
-                    onPressed: (){
+                    onPressed: () {
                       Navigator.pop(context, deviceName);
                     },
                     child: Text(
@@ -96,5 +151,3 @@ class _AddDevicePopupState extends State<AddDevicePopup> {
     );
   }
 }
-
-
